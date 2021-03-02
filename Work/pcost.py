@@ -2,10 +2,11 @@
 #
 # Exercise 1.27
 import sys
+import csv
 
 def portfolio_cost(filename):
 
-    with open('Data/'+ filename, 'rt') as f:
+    with open(filename, 'rt') as f:
         total_cost = 0.0
         headers = next(f)
 
@@ -20,10 +21,30 @@ def portfolio_cost(filename):
 
     return total_cost
 
+
+def portfolio_costx(filename):
+
+    with open(filename, 'rt') as f:
+        total_cost = 0.0
+        rows = csv.reader(f)
+        headers = next(rows)
+
+        for rowno,row in enumerate(rows,start=1):
+            record = dict(zip(headers,row))
+            try:
+                n_shares = int(record['shares'])
+                share_price = float(record['price'])
+                total_cost += n_shares * share_price
+            except ValueError:
+                print(f'Couldnt parse rowno {rowno} line{row}')
+            
+
+    return total_cost
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
-    filename = 'portfolio.csv'
+    filename = 'Data/portfolio.csv'
 
-cost = portfolio_cost(filename)
+cost = portfolio_costx(filename)
 print('Total cost:', cost)
