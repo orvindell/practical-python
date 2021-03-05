@@ -1,6 +1,10 @@
 # fileparse.py
+#
+# Exercise 3.3
+# fileparse.py
 import csv
 import logging
+
 log = logging.getLogger(__name__)
 
 def parse_csv(lines, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
@@ -35,9 +39,9 @@ def parse_csv(lines, select=None, types=None, has_headers=True, delimiter=',', s
                 row = [func(val) for func, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
-                    log.warning("Row %d: Couldn't conver %s", rowno, row)
+                    log.warning("Row %d: Couldn't convert %s", rowno, row)
                     log.debug("Row %d: Reason %s", rowno, e)
-      continue
+                continue
 
         # Make a dictionary or a tuple
         if headers:
@@ -47,3 +51,7 @@ def parse_csv(lines, select=None, types=None, has_headers=True, delimiter=',', s
         records.append(record)
 
     return records
+
+
+
+

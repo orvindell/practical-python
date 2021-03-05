@@ -6,6 +6,10 @@ import csv
 
 def portfolio_cost(filename):
 
+    portfolio = report.read_portfolio(filename)
+    return portfolio.total_cost
+
+    '''
     with open(filename, 'rt') as f:
         total_cost = 0.0
         headers = next(f)
@@ -20,7 +24,7 @@ def portfolio_cost(filename):
             total_cost += n_shares * share_price
 
     return total_cost
-
+    '''
 
 def portfolio_costx(filename):
 
